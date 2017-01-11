@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 //se quiser iniciar pelo springBoot
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.edu.teste.controllers" })
+@ComponentScan(basePackages = { "com.edu.teste" })
 public class Application {
 
     public static void main(String[] args) {

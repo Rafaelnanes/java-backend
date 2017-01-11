@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.edu.teste.controllers")
+@ComponentScan(basePackages = "com.edu.teste")
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
     @PostConstruct
