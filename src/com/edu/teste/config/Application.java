@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 //se quiser iniciar pelo springBoot
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.edu.teste" })
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
 	SpringApplication.run(Application.class, args);
@@ -32,5 +33,16 @@ public class Application {
 
 	};
     }
+
+    //
+    // @Bean
+    // public WebMvcConfigurer corsConfigurer() {
+    // return new WebMvcConfigurerAdapter() {
+    // @Override
+    // public void addCorsMappings(CorsRegistry registry) {
+    // registry.addMapping("*").allowedOrigins("*");
+    // }
+    // };
+    // }
 
 }
