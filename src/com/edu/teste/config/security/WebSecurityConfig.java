@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.edu.teste.config.security.jwt.JWTAuthenticationFilter;
@@ -23,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests().antMatchers("/").permitAll().antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and()
 		// We filter the api/login requests
+		.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class)
 		.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 			UsernamePasswordAuthenticationFilter.class)
 		// And filter other requests to check the presence of JWT in
