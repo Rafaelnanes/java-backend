@@ -1,4 +1,4 @@
-package com.edu.teste.config.security.jwt;
+package com.edu.teste.jwt;
 
 import java.util.Date;
 

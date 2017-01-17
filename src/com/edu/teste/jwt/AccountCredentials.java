@@ -1,15 +1,15 @@
-package com.edu.teste.config.security.jwt;
+package com.edu.teste.jwt;
 
 public class AccountCredentials {
 
     private String username;
     private String password;
 
-    String getUsername() {
+    public String getUsername() {
 	return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
 	return password;
     }
 

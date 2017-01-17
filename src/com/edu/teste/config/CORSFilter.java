@@ -1,4 +1,4 @@
-package com.edu.teste.config.security;
+package com.edu.teste.config;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class CORSFilter implements Filter {
 	HttpServletResponse response = (HttpServletResponse) servletResponse;
 	response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 	response.setHeader("Access-Control-Allow-Credentials", "true");
-	response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+	response.setHeader("Access-Control-Allow-Methods", "POST, GET,OPTIONS, DELETE");
 	response.setHeader("Access-Control-Max-Age", "3600");
 	response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, X-Auth-Token");
 	response.setHeader("Access-Control-Expose-Headers", "X-Auth-Token");

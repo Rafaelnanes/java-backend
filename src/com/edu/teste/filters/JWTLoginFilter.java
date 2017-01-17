@@ -1,4 +1,4 @@
-package com.edu.teste.config.security.jwt;
+package com.edu.teste.filters;
 
 import java.io.IOException;
 
@@ -14,6 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.edu.teste.jwt.AccountCredentials;
+import com.edu.teste.jwt.TokenAuthenticationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
