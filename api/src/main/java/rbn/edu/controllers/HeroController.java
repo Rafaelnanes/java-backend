@@ -1,4 +1,4 @@
-package com.edu.teste.controllers;
+package rbn.edu.controllers;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.teste.entity.Hero;
+import rbn.edu.entity.Hero;
 
 @RestController
 @RequestMapping("/hero")

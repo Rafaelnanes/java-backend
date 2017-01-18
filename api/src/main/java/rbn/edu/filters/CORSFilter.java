@@ -1,4 +1,4 @@
-package com.edu.teste.config;
+package rbn.edu.filters;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.edu.teste.jwt;
+package rbn.edu.jwt;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.edu.teste.config;
+package rbn.edu.config;
 
 import javax.servlet.Filter;
 

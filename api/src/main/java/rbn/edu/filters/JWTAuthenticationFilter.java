@@ -1,4 +1,4 @@
-package com.edu.teste.filters;
+package rbn.edu.filters;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.edu.teste.jwt.TokenAuthenticationService;
+import rbn.edu.jwt.TokenAuthenticationService;
 
 public class JWTAuthenticationFilter extends GenericFilterBean {
 

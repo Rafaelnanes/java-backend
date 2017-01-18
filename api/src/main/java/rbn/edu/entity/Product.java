@@ -1,4 +1,4 @@
-package com.edu.teste.entity;
+package rbn.edu.entity;
 
 public class Product {
 

@@ -2,3 +2,8 @@
 .settings/
 .classpath
 .project
+
+api/target/
+api/.settings/
+api/.classpath
+api/.project

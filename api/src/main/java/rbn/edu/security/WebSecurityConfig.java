@@ -1,4 +1,4 @@
-package com.edu.teste.security;
+package rbn.edu.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.edu.teste.config.CORSFilter;
-import com.edu.teste.filters.JWTAuthenticationFilter;
-import com.edu.teste.filters.JWTLoginFilter;
+import rbn.edu.filters.CORSFilter;
+import rbn.edu.filters.JWTAuthenticationFilter;
+import rbn.edu.filters.JWTLoginFilter;
 
 @Configuration
 @EnableWebSecurity

@@ -1,4 +1,4 @@
-package com.edu.teste.security;
+package rbn.edu.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
