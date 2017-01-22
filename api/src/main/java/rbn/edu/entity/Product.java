@@ -1,38 +1,50 @@
 package rbn.edu.entity;
 
-public class Product {
+import java.io.Serializable;
 
-    private long id;
-    private String name;
-    private double value;
+public class Product implements Serializable {
 
-    public long getId() {
-	return id;
-    }
+	private static final long serialVersionUID = -7842596050912714624L;
 
-    public void setId(long id) {
-	this.id = id;
-    }
+	private long id;
+	private String name;
+	private double value;
 
-    public String getName() {
-	return name;
-    }
+	public Product(){}
+	
+	public Product(long id, String name, double value) {
+		this.id = id;
+		this.name = name;
+		this.value = value;
+	}
 
-    public void setName(String name) {
-	this.name = name;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public double getValue() {
-	return value;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setValue(double value) {
-	this.value = value;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public String toString() {
-	return "Product [id=" + id + ", name=" + name + ", value=" + value + "]";
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", value=" + value + "]";
+	}
 
 }

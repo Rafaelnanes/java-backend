@@ -10,7 +10,7 @@
   </parent>
   
   <build>
-  	<finalName>rbn-api</finalName>
+  	<finalName>java-backend-api</finalName>
   	<resources>
   		<resource>
   			<directory>src/main/java</directory>
