@@ -47,4 +47,20 @@ public class Product implements Serializable {
 		return "Product [id=" + id + ", name=" + name + ", value=" + value + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (id == other.id)
+			return true;
+		return false;
+	}
+	
+	
+
 }

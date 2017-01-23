@@ -30,23 +30,31 @@ public class ProductController {
 		return product;
 	}
 
+	@RequestMapping(method = RequestMethod.PUT)
+	public Product update(@RequestBody Product product) {
+		Product productToUpdate = getProductById(product.getId());
+		products.remove(productToUpdate);
+		products.add(product);
+		return product;
+	}
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Product> get() {
 		return products;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public List<Product> delete(@PathVariable("id") int id) {
+	public List<Product> delete(@PathVariable("id") long id) {
 		products.remove(getProductById(id));
 		return products;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Product getById(@PathVariable("id") int id) {
+	public Product getById(@PathVariable("id") long id) {
 		return getProductById(id);
 	}
 
-	private Product getProductById(int id) {
+	private Product getProductById(long id) {
 		return products.stream().filter(p -> p.getId() == id).collect(Collectors.toList()).get(0);
 	}
 
