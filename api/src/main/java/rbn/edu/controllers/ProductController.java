@@ -1,61 +1,47 @@
 package rbn.edu.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import rbn.edu.entity.Product;
+import rbn.edu.model.Product;
+import rbn.edu.service.ProductService;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
-
-	private static List<Product> products = new ArrayList<Product>();
-
-	public ProductController() {
-		products.add(new Product(1, "Product1", 11));
-		products.add(new Product(2, "Product2", 22));
-		products.add(new Product(3, "Product3", 33));
-	}
-
+	
+	@Autowired
+	private ProductService productService;
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public Product send(@RequestBody Product product) {
-		products.add(product);
-		return product;
+		return productService.add(product);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public Product update(@RequestBody Product product) {
-		Product productToUpdate = getProductById(product.getId());
-		products.remove(productToUpdate);
-		products.add(product);
-		return product;
+		return productService.update(product);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Product> get() {
-		return products;
+		return productService.getAll();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public List<Product> delete(@PathVariable("id") long id) {
-		products.remove(getProductById(id));
-		return products;
+	public void delete(@PathVariable("id") long id) {
+		productService.remove(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Product getById(@PathVariable("id") long id) {
-		return getProductById(id);
-	}
-
-	private Product getProductById(long id) {
-		return products.stream().filter(p -> p.getId() == id).collect(Collectors.toList()).get(0);
+		return productService.getById(id);
 	}
 
 }

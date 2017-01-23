@@ -8,12 +8,16 @@
 	
 	<modules>
 		<module>api</module>
+		<module>model</module>
+		<module>service</module>
+		<module>service-impl-mock</module>
 	</modules>
 
 	<properties>
 		<spring-version>4.3.5.RELEASE</spring-version>
 		<spring-security-version>4.2.1.RELEASE</spring-security-version>
 		<jersey-version>1.8</jersey-version>
+		<java-backend-version>0.0.1-SNAPSHOT</java-backend-version>
 	</properties>
 
 	<dependencies>

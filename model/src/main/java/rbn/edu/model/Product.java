@@ -1,4 +1,4 @@
-package rbn.edu.entity;
+package rbn.edu.model;
 
 import java.io.Serializable;
 

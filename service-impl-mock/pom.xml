@@ -1,8 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>api</artifactId>
-	<packaging>war</packaging>
+	<artifactId>service-impl-mock</artifactId>
 
 	<parent>
 		<groupId>rbn.backend</groupId>
@@ -20,12 +19,6 @@
 
 		<dependency>
 			<groupId>rbn.backend</groupId>
-			<artifactId>service-impl-mock</artifactId>
-			<version>${java-backend-version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>rbn.backend</groupId>
 			<artifactId>model</artifactId>
 			<version>${java-backend-version}</version>
 		</dependency>
@@ -33,12 +26,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>java-backend-api</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-			</resource>
-		</resources>
+		<sourceDirectory>src/java/main</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -46,13 +34,6 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<warSourceDirectory>webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
 		</plugins>
