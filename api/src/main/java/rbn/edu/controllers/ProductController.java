@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import rbn.edu.model.Product;
-import rbn.edu.service.ProductService;
+import rbn.edu.service.IProductService;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
 	
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public Product send(@RequestBody Product product) {

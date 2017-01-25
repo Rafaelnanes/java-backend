@@ -2,16 +2,31 @@ package rbn.edu.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "product")
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = -7842596050912714624L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
+	@Column
 	private String name;
+	@Column
 	private double value;
 
-	public Product(){}
-	
+	public Product() {
+	}
+
 	public Product(long id, String name, double value) {
 		this.id = id;
 		this.name = name;
@@ -60,7 +75,5 @@ public class Product implements Serializable {
 			return true;
 		return false;
 	}
-	
-	
 
 }

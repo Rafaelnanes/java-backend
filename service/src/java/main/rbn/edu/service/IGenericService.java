@@ -2,7 +2,7 @@ package rbn.edu.service;
 
 import java.util.List;
 
-public interface GenericService<T> {
+public interface IGenericService<T> {
 
 	T add(T t);
 

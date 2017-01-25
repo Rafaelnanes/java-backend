@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import rbn.edu.model.Product;
-import rbn.edu.service.ProductService;
+import rbn.edu.service.IProductService;
 
 @Component
-public class ProductMockService implements ProductService {
+public class ProductMockService implements IProductService {
 
 	private static List<Product> products = new ArrayList<Product>();
 
