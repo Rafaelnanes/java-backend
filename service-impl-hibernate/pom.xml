@@ -13,10 +13,16 @@
 
 		<dependency>
 			<groupId>rbn.backend</groupId>
+			<artifactId>config</artifactId>
+			<version>${java-backend-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>rbn.backend</groupId>
 			<artifactId>service</artifactId>
 			<version>${java-backend-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>rbn.backend</groupId>
 			<artifactId>dao</artifactId>
@@ -28,7 +34,7 @@
 			<artifactId>dao-impl-${dao.impl.sufix}</artifactId>
 			<version>${java-backend-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>rbn.backend</groupId>
 			<artifactId>model</artifactId>

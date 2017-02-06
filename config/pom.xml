@@ -1,26 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>service</artifactId>
+	<artifactId>config</artifactId>
 
 	<parent>
 		<groupId>rbn.backend</groupId>
 		<artifactId>java-backend</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
-	<dependencies>
-		<dependency>
-			<groupId>rbn.backend</groupId>
-			<artifactId>config</artifactId>
-			<version>${java-backend-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>rbn.backend</groupId>
-			<artifactId>model</artifactId>
-			<version>${java-backend-version}</version>
-		</dependency>
-	</dependencies>
 
 	<build>
 		<sourceDirectory>src/java/main</sourceDirectory>
@@ -35,4 +22,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

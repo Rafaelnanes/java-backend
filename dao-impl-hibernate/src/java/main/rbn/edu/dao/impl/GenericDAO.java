@@ -10,52 +10,52 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class GenericDAO<T> {
-	
-	@Autowired
-	private SessionFactory sessionFactory;
 
-	protected Session getSession() {
-		Session session = null;
-		try {
-			session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-			session = sessionFactory.openSession();
-		}
-		return session;
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    protected Session getSession() {
+	Session session = null;
+	try {
+	    session = sessionFactory.getCurrentSession();
+	} catch (HibernateException e) {
+	    session = sessionFactory.openSession();
 	}
+	return session;
+    }
 
-	public T add(T obj) {
-		getSession().save(obj);
-		getSession().refresh(obj);
-		return obj;
-	}
+    public T add(T obj) {
+	getSession().save(obj);
+	getSession().refresh(obj);
+	return obj;
+    }
 
-	public T update(T obj) {
-		getSession().update(obj);
-		getSession().refresh(obj);
-		return obj;
-	}
+    public T update(T obj) {
+	getSession().update(obj);
+	getSession().refresh(obj);
+	return obj;
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<T> getAll() {
+	Criteria criteria = getSession().createCriteria(getPersistenceClass());
+	return criteria.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public T getById(long id) {
+	Criteria criteria = getSession().createCriteria(getPersistenceClass());
+	criteria.add(Restrictions.eq("id", id));
+	return (T) criteria.uniqueResult();
+    }
+
+    public void remove(long id) {
+	Criteria criteria = getSession().createCriteria(getPersistenceClass());
+	criteria.add(Restrictions.eq("id", id));
 	@SuppressWarnings("unchecked")
-	public List<T> getAll() {
-		Criteria criteria = getSession().createCriteria(getPersistenceClass());
-		return criteria.list();
-	}
+	T prod = (T) criteria.uniqueResult();
+	getSession().delete(prod);
+    }
 
-	@SuppressWarnings("unchecked")
-	public T getById(long id) {
-		Criteria criteria = getSession().createCriteria(getPersistenceClass());
-		criteria.add(Restrictions.eq("id", id));
-		return (T) criteria.uniqueResult();
-	}
-
-	public void remove(long id) {
-		Criteria criteria = getSession().createCriteria(getPersistenceClass());
-		criteria.add(Restrictions.eq("id", id));
-		@SuppressWarnings("unchecked")
-		T prod = (T) criteria.uniqueResult();
-		getSession().delete(prod);
-	}
-
-	protected abstract Class<T> getPersistenceClass();
+    protected abstract Class<T> getPersistenceClass();
 }

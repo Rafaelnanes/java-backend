@@ -1,79 +1,64 @@
 package rbn.edu.model;
 
-import java.io.Serializable;
+import java.math.BigDecimal;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
-public class Product implements Serializable {
+@Table(name = "PRO_PRODUCT")
+@AttributeOverrides({ @AttributeOverride(name = AbstractEntity.PK, column = @Column(name = Product.PK)) })
+public class Product extends AbstractEntity<Long> {
 
-	private static final long serialVersionUID = -7842596050912714624L;
+    private static final long serialVersionUID = -3721178740679096393L;
+    public static final String PK = "PRO_ID";
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	
-	@Column
-	private String name;
-	@Column
-	private double value;
+    @Column(name = "PRO_NAME", nullable = false)
+    private String name;
 
-	public Product() {
-	}
+    @Column(name = "PRO_VALUE", nullable = false, precision = 10, scale = 2)
+    private BigDecimal value;
 
-	public Product(long id, String name, double value) {
-		this.id = id;
-		this.name = name;
-		this.value = value;
-	}
+    // @Enumerated(EnumType.ORDINAL)
+    // @Column(name = "PRO_TYPE", nullable = false)
+    // private ProductTypeEnum productType;
 
-	public long getId() {
-		return id;
-	}
+    public Product() {
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public Product(Long id, String name, BigDecimal value) {
+	super();
+	this.id = id;
+	this.name = name;
+	this.value = value;
+	// this.productType = productType;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+	return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public double getValue() {
-		return value;
-	}
+    public BigDecimal getValue() {
+	return value;
+    }
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    public void setValue(BigDecimal value) {
+	this.value = value;
+    }
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", value=" + value + "]";
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Product other = (Product) obj;
-		if (id == other.id)
-			return true;
-		return false;
-	}
+    // public ProductTypeEnum getProductType() {
+    // return productType;
+    // }
+    //
+    // public void setProductType(ProductTypeEnum productType) {
+    // this.productType = productType;
+    // }
 
 }

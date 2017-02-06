@@ -2,16 +2,18 @@ package rbn.edu.service;
 
 import java.util.List;
 
+import rbn.edu.exceptions.BusinessException;
+
 public interface IGenericService<T> {
 
-	T add(T t);
+    void add(T t) throws BusinessException;
 
-	T update(T t);
+    void update(T t) throws BusinessException;
 
-	List<T> getAll();
+    List<T> getAll();
 
-	T getById(long id);
+    T getById(long id);
 
-	void remove(long id);
+    void remove(long id) throws BusinessException;
 
 }

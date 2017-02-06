@@ -1,5 +1,6 @@
 package rbn.edu.service.mock;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,21 +16,19 @@ public class ProductMockService implements IProductService {
 	private static List<Product> products = new ArrayList<Product>();
 
 	public ProductMockService() {
-		products.add(new Product(1, "Product1", 11));
-		products.add(new Product(2, "Product2", 22));
-		products.add(new Product(3, "Product3", 33));
+		products.add(new Product((long) 1, "Product1", new BigDecimal(11)));
+		products.add(new Product((long) 2, "Product2", new BigDecimal(22)));
+		products.add(new Product((long) 3, "Product3", new BigDecimal(33)));
 	}
 
-	public Product add(Product product) {
+	public void add(Product product) {
 		products.add(product);
-		return product;
 	}
 
-	public Product update(Product product) {
+	public void update(Product product) {
 		Product productToUpdate = getProductById(product.getId());
 		products.remove(productToUpdate);
 		products.add(product);
-		return product;
 	}
 
 	public List<Product> getAll() {
