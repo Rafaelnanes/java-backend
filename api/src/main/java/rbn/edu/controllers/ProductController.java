@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rbn.edu.enums.ProductTypeEnum;
 import rbn.edu.exceptions.BusinessException;
 import rbn.edu.model.Product;
 import rbn.edu.service.IProductService;
@@ -33,6 +34,11 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Product> get() {
 	return productService.getAll();
+    }
+
+    @RequestMapping(value = "/productTypes", method = RequestMethod.GET)
+    public List<ProductTypeEnum> getProductTypes() {
+	return productService.getAllProductTypes();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

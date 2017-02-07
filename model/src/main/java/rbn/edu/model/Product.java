@@ -6,7 +6,11 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
+
+import rbn.edu.enums.ProductTypeEnum;
 
 @Entity
 @Table(name = "PRO_PRODUCT")
@@ -22,19 +26,19 @@ public class Product extends AbstractEntity<Long> {
     @Column(name = "PRO_VALUE", nullable = false, precision = 10, scale = 2)
     private BigDecimal value;
 
-    // @Enumerated(EnumType.ORDINAL)
-    // @Column(name = "PRO_TYPE", nullable = false)
-    // private ProductTypeEnum productType;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "PRO_TYPE", nullable = false)
+    private ProductTypeEnum productType;
 
     public Product() {
     }
 
-    public Product(Long id, String name, BigDecimal value) {
+    public Product(Long id, String name, BigDecimal value, ProductTypeEnum type) {
 	super();
 	this.id = id;
 	this.name = name;
 	this.value = value;
-	// this.productType = productType;
+	this.productType = type;
     }
 
     public String getName() {
@@ -53,12 +57,12 @@ public class Product extends AbstractEntity<Long> {
 	this.value = value;
     }
 
-    // public ProductTypeEnum getProductType() {
-    // return productType;
-    // }
-    //
-    // public void setProductType(ProductTypeEnum productType) {
-    // this.productType = productType;
-    // }
+    public ProductTypeEnum getProductType() {
+	return productType;
+    }
+
+    public void setProductType(ProductTypeEnum productType) {
+	this.productType = productType;
+    }
 
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import rbn.edu.enums.ProductTypeEnum;
 import rbn.edu.model.Product;
 import rbn.edu.service.IProductService;
 
@@ -16,9 +17,9 @@ public class ProductMockService implements IProductService {
 	private static List<Product> products = new ArrayList<Product>();
 
 	public ProductMockService() {
-		products.add(new Product((long) 1, "Product1", new BigDecimal(11)));
-		products.add(new Product((long) 2, "Product2", new BigDecimal(22)));
-		products.add(new Product((long) 3, "Product3", new BigDecimal(33)));
+		products.add(new Product((long) 1, "Product1", new BigDecimal(11), ProductTypeEnum.CAR));
+		products.add(new Product((long) 2, "Product2", new BigDecimal(22), ProductTypeEnum.UTILITY));
+		products.add(new Product((long) 3, "Product3", new BigDecimal(33), ProductTypeEnum.CLOTH));
 	}
 
 	public void add(Product product) {
@@ -46,6 +47,15 @@ public class ProductMockService implements IProductService {
 
 	private Product getProductById(final long id) {
 		return products.stream().filter(p -> p.getId() == id).collect(Collectors.toList()).get(0);
+	}
+
+	@Override
+	public List<ProductTypeEnum> getAllProductTypes() {
+		List<ProductTypeEnum> list = new ArrayList<ProductTypeEnum>();
+		for (ProductTypeEnum type : ProductTypeEnum.values()) {
+			list.add(type);
+		}
+		return list;
 	}
 
 }
