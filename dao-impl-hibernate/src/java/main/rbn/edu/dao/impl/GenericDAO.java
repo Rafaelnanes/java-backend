@@ -31,7 +31,7 @@ public abstract class GenericDAO<T> {
     }
 
     public T update(T obj) {
-	getSession().update(obj);
+	getSession().merge(obj);
 	getSession().refresh(obj);
 	return obj;
     }
