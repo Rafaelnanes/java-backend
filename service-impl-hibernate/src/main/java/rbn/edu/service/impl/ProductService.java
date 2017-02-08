@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import rbn.edu.dao.IProductDAO;
 import rbn.edu.enums.ProductTypeEnum;
+import rbn.edu.exceptions.BusinessException;
 import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
 import rbn.edu.model.ResponseServer;
@@ -21,12 +22,19 @@ public class ProductService implements IProductService {
     private IProductDAO productDAO;
 
     @Transactional
-    public void add(Product t) {
+    public void add(Product t) throws BusinessException {
+	if (productDAO.getByName(t.getName()) != null) {
+	    throw new BusinessException("Product already exists.");
+	}
 	productDAO.add(t);
     }
 
     @Transactional
-    public void update(Product t) {
+    public void update(Product t) throws BusinessException {
+	Product productFromDB = productDAO.getByName(t.getName());
+	if (productFromDB != null && productFromDB.equals(t)) {
+	    throw new BusinessException("Product already exists.");
+	}
 	productDAO.update(t);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import rbn.edu.enums.ProductTypeEnum;
 import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
+import rbn.edu.model.ResponseServer;
 import rbn.edu.service.IProductService;
 
 @Component
@@ -60,8 +61,10 @@ public class ProductMockService implements IProductService {
 	}
 
 	@Override
-	public List<Product> getAll(FilterDTO<Product> dto) {
-		return this.getAll();
+	public ResponseServer<Product> getAll(FilterDTO<Product> dto) {
+		List<Product> list = getAll();
+		return new ResponseServer<Product>(list.size(), list);//FIXME need to calculate de pagination
 	}
+
 
 }

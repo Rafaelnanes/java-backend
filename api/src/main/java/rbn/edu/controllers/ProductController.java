@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.POST)
-    public ResponseServer<Product> getByQuery(@RequestBody FilterDTO<Product> dto) {
+    public ResponseServer<Product> getByQuery(@RequestBody FilterDTO<Product> dto) throws BusinessException {
 	return productService.getAll(dto);
     }
 

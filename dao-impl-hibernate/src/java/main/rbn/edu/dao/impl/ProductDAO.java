@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,12 @@ public class ProductDAO extends GenericDAO<Product> implements IProductDAO {
 	int size = ((Number) criteriaCount.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 
 	return new ResponseServer<Product>(size, products);
+    }
+
+    public Product getByName(String name) {
+	Criteria criteria = getSession().createCriteria(getPersistenceClass());
+	criteria.add(Restrictions.eq("name", name));
+	return (Product) criteria.uniqueResult();
     }
 
 }
