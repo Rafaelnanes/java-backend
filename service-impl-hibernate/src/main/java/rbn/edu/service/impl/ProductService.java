@@ -7,16 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import rbn.edu.dao.impl.ProductDAO;
+import rbn.edu.dao.IProductDAO;
 import rbn.edu.enums.ProductTypeEnum;
+import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
+import rbn.edu.model.ResponseServer;
 import rbn.edu.service.IProductService;
 
 @Service
 public class ProductService implements IProductService {
 
     @Autowired
-    private ProductDAO productDAO;
+    private IProductDAO productDAO;
 
     @Transactional
     public void add(Product t) {
@@ -47,6 +49,10 @@ public class ProductService implements IProductService {
 	    list.add(type);
 	}
 	return list;
+    }
+
+    public ResponseServer<Product> getAll(FilterDTO<Product> dto) {
+	return productDAO.getAll(dto);
     }
 
 }

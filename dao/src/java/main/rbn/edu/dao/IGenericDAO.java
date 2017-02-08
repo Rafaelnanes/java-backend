@@ -3,15 +3,15 @@ package rbn.edu.dao;
 import java.util.List;
 
 public interface IGenericDAO<T> {
-	
-	T add(T obj);
 
-	T update(T obj);
+    T add(T obj);
 
-	List<T> getAll();
+    T update(T obj);
 
-	T getById(long id);
+    List<T> getAll();
 
-	void remove(long id);
+    T getById(long id);
+
+    void remove(long id);
 
 }

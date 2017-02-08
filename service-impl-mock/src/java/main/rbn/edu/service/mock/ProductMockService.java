@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import rbn.edu.enums.ProductTypeEnum;
+import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
 import rbn.edu.service.IProductService;
 
@@ -56,6 +57,11 @@ public class ProductMockService implements IProductService {
 			list.add(type);
 		}
 		return list;
+	}
+
+	@Override
+	public List<Product> getAll(FilterDTO<Product> dto) {
+		return this.getAll();
 	}
 
 }

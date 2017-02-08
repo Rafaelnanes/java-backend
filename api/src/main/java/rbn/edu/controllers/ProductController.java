@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import rbn.edu.enums.ProductTypeEnum;
 import rbn.edu.exceptions.BusinessException;
+import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
+import rbn.edu.model.ResponseServer;
 import rbn.edu.service.IProductService;
 
 @RestController
@@ -34,6 +36,11 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Product> get() {
 	return productService.getAll();
+    }
+
+    @RequestMapping(value = "/query", method = RequestMethod.POST)
+    public ResponseServer<Product> getByQuery(@RequestBody FilterDTO<Product> dto) {
+	return productService.getAll(dto);
     }
 
     @RequestMapping(value = "/productTypes", method = RequestMethod.GET)

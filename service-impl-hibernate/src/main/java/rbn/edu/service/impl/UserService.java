@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import rbn.edu.dao.IUserDAO;
 import rbn.edu.dao.IUserLevelDAO;
 import rbn.edu.exceptions.BusinessException;
+import rbn.edu.model.FilterDTO;
 import rbn.edu.model.User;
 import rbn.edu.model.UserLevel;
 import rbn.edu.service.IUserService;
@@ -137,6 +138,10 @@ public class UserService implements IUserService {
     @Transactional
     private User getUserByLogin(String login) {
 	return userDAO.findUserByLogin(login);
+    }
+
+    public List<User> getAll(FilterDTO<?> dto) {
+	return this.getAll();
     }
 
 }

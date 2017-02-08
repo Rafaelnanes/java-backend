@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import rbn.edu.dao.IUserLevelDAO;
+import rbn.edu.model.FilterDTO;
 import rbn.edu.model.UserLevel;
 
 @Repository
@@ -32,6 +33,10 @@ public class UserLevelDAO extends GenericDAO<UserLevel> implements IUserLevelDAO
 		getSession().delete(userLevel);
 	    }
 	}
+    }
+
+    public List<UserLevel> getAll(FilterDTO<?> filter) {
+	return this.getAll();
     }
 
 }
