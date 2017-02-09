@@ -6,15 +6,17 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import rbn.edu.config.ProjectConstants;
+import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.dao.IUserDAO;
 import rbn.edu.dao.IUserLevelDAO;
-import rbn.edu.exceptions.BusinessException;
 import rbn.edu.model.FilterDTO;
 import rbn.edu.model.User;
 import rbn.edu.model.UserLevel;
@@ -23,7 +25,8 @@ import rbn.edu.service.IUserService;
 @Service
 public class UserService implements IUserService {
 
-    private static final String USER_LOGIN_ALREADY_EXISTS = "User login already exists.";
+    @Autowired
+    private Environment env;
 
     @Autowired
     private IUserDAO userDAO;
@@ -68,7 +71,7 @@ public class UserService implements IUserService {
 	try {
 	    User userFromDB = userDAO.findUserByLogin(t.getLogin());
 	    if (userFromDB != null) {
-		throw new BusinessException(USER_LOGIN_ALREADY_EXISTS);
+		throw new BusinessException(env.getProperty(ProjectConstants.USER_ALREADY_EXISTS));
 	    }
 	    t.setPassword(new BCryptPasswordEncoder().encode(t.getPassword()));
 	    Set<UserLevel> userLevels = t.getUserLevels();
@@ -87,7 +90,7 @@ public class UserService implements IUserService {
 	try {
 	    User userFromDB = userDAO.findUserByLogin(t.getLogin());
 	    if (userFromDB != null && userFromDB.getId().intValue() != t.getId().intValue()) {
-		throw new BusinessException(USER_LOGIN_ALREADY_EXISTS);
+		throw new BusinessException(env.getProperty(ProjectConstants.USER_ALREADY_EXISTS));
 	    }
 	    t.setPassword(new BCryptPasswordEncoder().encode(t.getPassword()));
 	    removeAllUserLevelsByUserId(t.getId());

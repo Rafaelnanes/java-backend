@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.enums.ProductTypeEnum;
-import rbn.edu.exceptions.BusinessException;
 import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
 import rbn.edu.model.ResponseServer;

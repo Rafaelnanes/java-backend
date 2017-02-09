@@ -2,7 +2,7 @@ package rbn.edu.service;
 
 import java.util.List;
 
-import rbn.edu.exceptions.BusinessException;
+import rbn.edu.config.exceptions.BusinessException;
 
 public interface IGenericService<T> {
 

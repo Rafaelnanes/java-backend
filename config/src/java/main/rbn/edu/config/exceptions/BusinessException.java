@@ -1,4 +1,4 @@
-package rbn.edu.exceptions;
+package rbn.edu.config.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

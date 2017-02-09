@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import rbn.edu.exceptions.BusinessException;
+import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.model.ResponseError;
 
 @ControllerAdvice
