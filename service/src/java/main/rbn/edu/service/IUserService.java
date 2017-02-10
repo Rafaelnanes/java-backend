@@ -5,10 +5,8 @@ import rbn.edu.model.UserLevel;
 
 public interface IUserService extends IGenericService<User> {
 
-    boolean isUserLogged();
-
-    User getUserLogged();
-
     UserLevel getUserLevelById(long id);
+
+    User getUserByLogin(String login);
 
 }

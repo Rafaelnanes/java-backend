@@ -19,6 +19,7 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 	    throws IOException, ServletException {
+	// TokenAuthenticationService, I dont need this class into Bean
 	Authentication authentication = new TokenAuthenticationService()
 		.getAuthentication((HttpServletRequest) request);
 

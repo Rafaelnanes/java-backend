@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @EnableScheduling
 @ComponentScan(basePackages = { "rbn.edu.config", "rbn.edu.controllers", "rbn.edu.filters", "rbn.edu.handler",
-	"rbn.edu.security" })
+	"rbn.edu.security", "rbn.edu.jwt" })
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
 }

@@ -7,9 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,38 +30,6 @@ public class UserService implements IUserService {
 
     @Autowired
     private IUserLevelDAO userLevelDAO;
-
-    public boolean isUserLogged() {
-	String login = "anonymousUser";
-	SecurityContext context = SecurityContextHolder.getContext();
-	Authentication authentication = context.getAuthentication();
-	if (authentication != null) {
-	    try {
-		login = (String) authentication.getPrincipal();
-	    } catch (ClassCastException e) {
-		login = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal())
-			.getUsername();
-	    }
-	}
-	return login.equals("anonymousUser") ? false : true;
-    }
-
-    public User getUserLogged() {
-	User user = null;
-	String login = "";
-	if (isUserLogged()) {
-	    SecurityContext context = SecurityContextHolder.getContext();
-	    Authentication authentication = context.getAuthentication();
-	    try {
-		login = (String) authentication.getPrincipal();
-	    } catch (ClassCastException e) {
-		login = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal())
-			.getUsername();
-	    }
-	    user = getUserByLogin(login);
-	}
-	return user;
-    }
 
     @Transactional
     public void add(User t) throws BusinessException {
@@ -139,7 +104,7 @@ public class UserService implements IUserService {
     }
 
     @Transactional
-    private User getUserByLogin(String login) {
+    public User getUserByLogin(String login) {
 	return userDAO.findUserByLogin(login);
     }
 

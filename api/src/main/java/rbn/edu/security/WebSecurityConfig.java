@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,15 +28,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private JWTLoginFilter jwtLoginFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
 	http.headers().cacheControl();
 	http.csrf().disable() //
 		.authorizeRequests().antMatchers("/").permitAll().antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and() //
+		// new JWTLoginFilter(authenticationManager())
 		.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class)
-		.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
-			UsernamePasswordAuthenticationFilter.class)
+		.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class)
 		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -54,6 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
 	PasswordEncoder encoder = new BCryptPasswordEncoder();
 	return encoder;
+    }
+
+    @Bean
+    public AuthenticationManager authManager() throws Exception {
+	return authenticationManager();
     }
 
 }
