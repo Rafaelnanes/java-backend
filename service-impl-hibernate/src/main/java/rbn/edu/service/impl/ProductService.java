@@ -37,8 +37,9 @@ public class ProductService implements IProductService {
     @Transactional
     public void update(Product t) throws BusinessException {
 	Product productFromDB = productDAO.getByName(t.getName());
-	if (productFromDB != null && productFromDB.equals(t)) {
-	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_ALREADY_EXISTS));
+	if (productFromDB != null && !productFromDB.equals(t)
+		&& productFromDB.getName().equalsIgnoreCase(t.getName())) {
+	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_NAME_ALREADY_EXISTS));
 	}
 	productDAO.update(t);
     }

@@ -1,6 +1,7 @@
 package rbn.edu.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -29,6 +30,9 @@ public class Product extends AbstractEntity<Long> {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "PRO_TYPE", nullable = false)
     private ProductTypeEnum productType;
+
+    @Column(name = "PRO_DATE", nullable = true)
+    private Date date;
 
     public Product() {
     }
@@ -63,6 +67,14 @@ public class Product extends AbstractEntity<Long> {
 
     public void setProductType(ProductTypeEnum productType) {
 	this.productType = productType;
+    }
+
+    public Date getDate() {
+	return date;
+    }
+
+    public void setDate(Date date) {
+	this.date = date;
     }
 
 }
