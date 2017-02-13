@@ -33,6 +33,7 @@ public abstract class AbstractEntity<PK> implements Serializable {
 	return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
 	if (this == obj)
@@ -41,7 +42,7 @@ public abstract class AbstractEntity<PK> implements Serializable {
 	    return false;
 	if (getClass() != obj.getClass())
 	    return false;
-	AbstractEntity other = (AbstractEntity) obj;
+	AbstractEntity<PK> other = (AbstractEntity<PK>) obj;
 	if (id == null) {
 	    if (other.id != null)
 		return false;

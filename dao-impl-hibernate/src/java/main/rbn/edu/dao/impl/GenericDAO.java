@@ -26,24 +26,28 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
 	return session;
     }
 
+    @Override
     public T add(T obj) {
 	getSession().save(obj);
 	getSession().refresh(obj);
 	return obj;
     }
 
+    @Override
     public T update(T obj) {
-	getSession().merge(obj);
+	getSession().update(obj);
 	getSession().refresh(obj);
 	return obj;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
 	Criteria criteria = getSession().createCriteria(getPersistenceClass());
 	return criteria.list();
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public T getById(long id) {
 	Criteria criteria = getSession().createCriteria(getPersistenceClass());
@@ -51,6 +55,7 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
 	return (T) criteria.uniqueResult();
     }
 
+    @Override
     public void remove(long id) {
 	Criteria criteria = getSession().createCriteria(getPersistenceClass());
 	criteria.add(Restrictions.eq("id", id));

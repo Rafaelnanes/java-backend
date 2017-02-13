@@ -23,6 +23,9 @@ public class UserProduct extends AbstractEntity<Long> {
     @JoinColumn(name = "CAP_" + Product.PK)
     private Product product;
 
+    @Column(name = "CAP_QUANTITY")
+    private Integer quantity;
+
     public User getUser() {
 	return user;
     }
@@ -37,6 +40,14 @@ public class UserProduct extends AbstractEntity<Long> {
 
     public void setProduct(Product product) {
 	this.product = product;
+    }
+
+    public Integer getQuantity() {
+	return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+	this.quantity = quantity;
     }
 
 }

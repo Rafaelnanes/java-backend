@@ -9,4 +9,6 @@ public interface IUserService extends IGenericService<User> {
 
     User getUserByLogin(String login);
 
+    User getUserLogged();
+
 }

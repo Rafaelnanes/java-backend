@@ -16,7 +16,7 @@
 			<artifactId>model</artifactId>
 			<version>${java-backend-version}</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>rbn.backend</groupId>
 			<artifactId>dao</artifactId>
@@ -32,8 +32,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
 				<configuration>
-					<source />
-					<target />
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>

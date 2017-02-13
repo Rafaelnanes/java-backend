@@ -21,6 +21,7 @@ public class UserLevelDAO extends GenericDAO<UserLevel> implements IUserLevelDAO
 	return UserLevel.class;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void removeAllByUserId(long userId) {
 	Criteria criteria = getSession().createCriteria(getPersistenceClass());

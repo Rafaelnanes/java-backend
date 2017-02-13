@@ -26,6 +26,7 @@ public class ProductService implements IProductService {
     @Autowired
     private Environment env;
 
+    @Override
     @Transactional
     public void add(Product t) throws BusinessException {
 	if (productDAO.getByName(t.getName()) != null) {
@@ -34,29 +35,39 @@ public class ProductService implements IProductService {
 	productDAO.add(t);
     }
 
+    @Override
     @Transactional
     public void update(Product t) throws BusinessException {
-	Product productFromDB = productDAO.getByName(t.getName());
-	if (productFromDB != null && !productFromDB.equals(t)
-		&& productFromDB.getName().equalsIgnoreCase(t.getName())) {
+	Product managedProduct = productDAO.getByName(t.getName());
+	if (managedProduct != null && !managedProduct.equals(t)
+		&& managedProduct.getName().equalsIgnoreCase(t.getName())) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_NAME_ALREADY_EXISTS));
 	}
-	productDAO.update(t);
+	managedProduct.setDate(t.getDate());
+	managedProduct.setId(t.getId());
+	managedProduct.setName(t.getName());
+	managedProduct.setProductType(t.getProductType());
+	managedProduct.setValue(t.getValue());
+	productDAO.update(managedProduct);
     }
 
+    @Override
     public List<Product> getAll() {
 	return productDAO.getAll();
     }
 
+    @Override
     public Product getById(long id) {
 	return productDAO.getById(id);
     }
 
+    @Override
     @Transactional
     public void remove(long id) {
 	productDAO.remove(id);
     }
 
+    @Override
     public List<ProductTypeEnum> getAllProductTypes() {
 	List<ProductTypeEnum> list = new ArrayList<ProductTypeEnum>();
 	for (ProductTypeEnum type : ProductTypeEnum.values()) {
@@ -65,6 +76,7 @@ public class ProductService implements IProductService {
 	return list;
     }
 
+    @Override
     public ResponseServer<Product> getAll(FilterDTO<Product> dto) {
 	return productDAO.getAll(dto);
     }

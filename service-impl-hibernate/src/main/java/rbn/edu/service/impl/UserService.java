@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,13 @@ public class UserService implements IUserService {
     @Autowired
     private IUserLevelDAO userLevelDAO;
 
+    @Override
+    public User getUserLogged() {
+	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	return userDAO.findUserByLogin(username);
+    }
+
+    @Override
     @Transactional
     public void add(User t) throws BusinessException {
 	try {
@@ -50,6 +58,7 @@ public class UserService implements IUserService {
 	}
     }
 
+    @Override
     @Transactional
     public void update(User t) throws BusinessException {
 	try {
@@ -79,16 +88,19 @@ public class UserService implements IUserService {
 	userLevelDAO.removeAllByUserId(id);
     }
 
+    @Override
     @Transactional
     public List<User> getAll() {
 	return userDAO.getAll();
     }
 
+    @Override
     @Transactional
     public User getById(long id) {
 	return userDAO.getById(id);
     }
 
+    @Override
     @Transactional
     public void remove(long id) throws BusinessException {
 	try {
@@ -99,10 +111,12 @@ public class UserService implements IUserService {
 	}
     }
 
+    @Override
     public UserLevel getUserLevelById(long id) {
 	return userLevelDAO.getById(id);
     }
 
+    @Override
     @Transactional
     public User getUserByLogin(String login) {
 	return userDAO.findUserByLogin(login);
