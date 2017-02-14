@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import rbn.edu.model.UserLevel;
+import rbn.edu.model.User;
 import rbn.edu.service.IUserService;
 
 @Service
@@ -28,14 +31,15 @@ public class TokenAuthenticationService {
     private String headerString = "Authorization";
     private final String TOKEN = "//";
 
-    public void addAuthentication(HttpServletResponse response, String username) {
+    public void addAuthentication(HttpServletResponse response, String username) throws JsonProcessingException {
 	String finalString = "";
 	StringBuilder JWT = new StringBuilder();
-	for (UserLevel level : userService.getUserByLogin(username).getUserLevels()) {
-	    JWT.append(level.getAuthority());
-	    JWT.append(",");
-	}
-	JWT.delete(JWT.length() - 1, JWT.length());// remove the last ','
+
+	User user = userService.getUserByLogin(username);
+	user.getUserLevels().forEach(level -> level.setUser(null));
+	ObjectMapper mapper = new ObjectMapper();
+	String json = mapper.writeValueAsString(user);
+	JWT.append(json);
 	JWT.append(TOKEN);
 	JWT.append(
 		Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
