@@ -13,4 +13,8 @@ public interface IUserProductDAO extends Serializable {
 
     List<UserProduct> getByUserId(long userId);
 
+    List<UserProduct> getByProductId(long productId);
+
+    void removeByProductId(long productId);
+
 }

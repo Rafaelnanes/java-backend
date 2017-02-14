@@ -18,6 +18,7 @@ import rbn.edu.service.IUserProductService;
 import rbn.edu.service.IUserService;
 
 @Service
+@Transactional
 public class UserProductService implements IUserProductService {
 
     private static final long serialVersionUID = -3666577666403707888L;
@@ -32,7 +33,6 @@ public class UserProductService implements IUserProductService {
     private Environment env;
 
     @Override
-    @Transactional
     public void save(List<UserProduct> list) throws BusinessException {
 	if (CollectionUtils.isEmpty(list)) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.USER_PRODUCT_NULL));
@@ -44,14 +44,23 @@ public class UserProductService implements IUserProductService {
     }
 
     @Override
-    @Transactional
     public void clear(long userId) {
 	userProductDAO.clear(userId);
     }
 
     @Override
-    public List<UserProduct> getByUser(long userId) {
+    public List<UserProduct> getByUserId(long userId) {
 	return userProductDAO.getByUserId(userId);
+    }
+
+    @Override
+    public List<UserProduct> getByProductId(long productId) {
+	return userProductDAO.getByProductId(productId);
+    }
+
+    @Override
+    public void removeByProductId(long productId) {
+	userProductDAO.removeByProductId(productId);
     }
 
 }

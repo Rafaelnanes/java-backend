@@ -36,7 +36,6 @@ public abstract class GenericDAO<T> implements IGenericDAO<T> {
     @Override
     public T update(T obj) {
 	getSession().update(obj);
-	getSession().refresh(obj);
 	return obj;
     }
 

@@ -45,4 +45,22 @@ public class UserProductDAO extends GenericDAO<UserProduct> implements IUserProd
 	return criteria.list();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<UserProduct> getByProductId(long productId) {
+	Criteria criteria = getSession().createCriteria(UserProduct.class);
+	criteria.createAlias("product", "product");
+	criteria.add(Restrictions.eq("product.id", productId));
+	criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+	return criteria.list();
+    }
+
+    @Override
+    public void removeByProductId(long productId) {
+	List<UserProduct> list = getByProductId(productId);
+	if (!CollectionUtils.isEmpty(list)) {
+	    list.forEach(item -> remove(item.getId()));
+	}
+    }
+
 }

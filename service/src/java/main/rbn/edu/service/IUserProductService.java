@@ -12,6 +12,10 @@ public interface IUserProductService extends Serializable {
 
     void clear(long userId);
 
-    List<UserProduct> getByUser(long userId);
+    List<UserProduct> getByUserId(long userId);
+
+    List<UserProduct> getByProductId(long productId);
+
+    void removeByProductId(long productId);
 
 }

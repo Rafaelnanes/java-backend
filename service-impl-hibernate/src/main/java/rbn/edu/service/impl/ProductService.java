@@ -16,18 +16,22 @@ import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
 import rbn.edu.model.ResponseServer;
 import rbn.edu.service.IProductService;
+import rbn.edu.service.IUserProductService;
 
 @Service
+@Transactional
 public class ProductService implements IProductService {
 
     @Autowired
     private IProductDAO productDAO;
 
     @Autowired
+    private IUserProductService userProductService;
+
+    @Autowired
     private Environment env;
 
     @Override
-    @Transactional
     public void add(Product t) throws BusinessException {
 	if (productDAO.getByName(t.getName()) != null) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_ALREADY_EXISTS));
@@ -36,7 +40,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @Transactional
     public void update(Product t) throws BusinessException {
 	Product managedProduct = productDAO.getByName(t.getName());
 	if (managedProduct != null && !managedProduct.equals(t)
@@ -44,7 +47,6 @@ public class ProductService implements IProductService {
 	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_NAME_ALREADY_EXISTS));
 	}
 	managedProduct.setDate(t.getDate());
-	managedProduct.setId(t.getId());
 	managedProduct.setName(t.getName());
 	managedProduct.setProductType(t.getProductType());
 	managedProduct.setValue(t.getValue());
@@ -62,8 +64,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    @Transactional
-    public void remove(long id) {
+    public void remove(long id) throws BusinessException {
+	userProductService.removeByProductId(id);
 	productDAO.remove(id);
     }
 
