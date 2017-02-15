@@ -51,7 +51,10 @@ public class UserProductService implements IUserProductService {
     @Override
     public List<UserProduct> getByUserId(long userId) {
 	List<UserProduct> list = userProductDAO.getByUserId(userId);
-	list.forEach(up -> up.getUser().setUserLevels(null));
+	for (UserProduct up : list) {
+	    up.getUser().setUserLevels(null);
+	    up.getUser().setPassword("");
+	}
 	return list;
     }
 

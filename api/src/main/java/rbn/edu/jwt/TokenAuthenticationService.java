@@ -37,6 +37,7 @@ public class TokenAuthenticationService {
 
 	User user = userService.getUserByLogin(username);
 	user.getUserLevels().forEach(level -> level.setUser(null));
+	user.setPassword(null);
 	ObjectMapper mapper = new ObjectMapper();
 	String json = mapper.writeValueAsString(user);
 	JWT.append(json);
