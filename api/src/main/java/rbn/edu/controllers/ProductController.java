@@ -36,19 +36,19 @@ public class ProductController {
 	productService.update(product);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN', 'ROLE_VISITOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Product> get() {
 	return productService.getAll();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public ResponseServer<Product> getByQuery(@RequestBody FilterDTO<Product> dto) throws BusinessException {
 	return productService.getAll(dto);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN', 'ROLE_VISITOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
     @RequestMapping(value = "/productTypes", method = RequestMethod.GET)
     public List<ProductTypeEnum> getProductTypes() {
 	return productService.getAllProductTypes();
