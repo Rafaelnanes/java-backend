@@ -19,7 +19,7 @@ class GlobalDefaultExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public ResponseError exceptionHandler(BusinessException ex) {
+    public ResponseError handleError400(BusinessException ex) {
 	ResponseError error = new ResponseError();
 	error.setStatusCode(HttpStatus.BAD_REQUEST.value());
 	List<String> list = new ArrayList<String>();
@@ -31,7 +31,7 @@ class GlobalDefaultExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
-    public ResponseError exception(AccessDeniedException e) {
+    public ResponseError handleError401(AccessDeniedException e) {
 	ResponseError error = new ResponseError();
 	error.setStatusCode(HttpStatus.UNAUTHORIZED.value());
 	List<String> list = new ArrayList<String>();
@@ -39,4 +39,5 @@ class GlobalDefaultExceptionHandler {
 	error.setMessages(list);
 	return error;
     }
+
 }

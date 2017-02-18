@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import rbn.edu.model.User;
@@ -26,7 +27,7 @@ public class TokenAuthenticationService {
     @Autowired
     private IUserService userService;
 
-    private long EXPIRATIONTIME = 1000 * 60 * 60 * 24; // 1 day
+    private long EXPIRATIONTIME = 1000 * 60 * 60; // 1 hour
     private String secret = "ThisIsASecret";
     // private String tokenPrefix = "Bearer";
     private String headerString = "Authorization";
@@ -56,11 +57,19 @@ public class TokenAuthenticationService {
 	response.addHeader(headerString, finalString);
     }
 
-    public Authentication getAuthentication(HttpServletRequest request) throws UnsupportedEncodingException {
+    public Authentication getAuthentication(HttpServletRequest request)
+	    throws UnsupportedEncodingException, ExpiredJwtException {
 	String token = request.getHeader(headerString);
 
 	if (token != null) {
-	    String username = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+	    String username = null;
+
+	    try {
+		username = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+	    } catch (ExpiredJwtException e) {
+		throw new ExpiredJwtException(e.getHeader(), e.getClaims(), e.getMessage());
+	    }
+
 	    if (username != null) {
 		User user = userService.getUserByLogin(username);
 		return new AuthenticatedUser(user);
