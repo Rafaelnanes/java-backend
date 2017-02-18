@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -36,6 +37,7 @@ public class TokenAuthenticationService {
 	StringBuilder JWT = new StringBuilder();
 
 	User user = userService.getUserByLogin(username);
+	SecurityContextHolder.getContext().setAuthentication(new AuthenticatedUser(user));
 	user.getUserLevels().forEach(level -> level.setUser(null));
 	user.setPassword(null);
 	ObjectMapper mapper = new ObjectMapper();
@@ -60,7 +62,8 @@ public class TokenAuthenticationService {
 	if (token != null) {
 	    String username = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
 	    if (username != null) {
-		return new AuthenticatedUser(username);
+		User user = userService.getUserByLogin(username);
+		return new AuthenticatedUser(user);
 	    }
 	}
 	return null;

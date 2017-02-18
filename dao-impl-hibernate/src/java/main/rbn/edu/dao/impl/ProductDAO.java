@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import rbn.edu.dao.IProductDAO;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
-import rbn.edu.model.ResponseServer;
+import rbn.edu.model.api.FilterDTO;
+import rbn.edu.model.api.ResponseServer;
 
 @Repository
 @Transactional

@@ -15,9 +15,9 @@ import rbn.edu.config.ProjectConstants;
 import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.dao.IUserDAO;
 import rbn.edu.dao.IUserLevelDAO;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.User;
 import rbn.edu.model.UserLevel;
+import rbn.edu.model.api.FilterDTO;
 import rbn.edu.service.IUserService;
 
 @Service

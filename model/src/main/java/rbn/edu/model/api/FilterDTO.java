@@ -1,4 +1,4 @@
-package rbn.edu.model;
+package rbn.edu.model.api;
 
 public class FilterDTO<T> {
 

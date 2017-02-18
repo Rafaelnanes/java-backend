@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,6 +22,7 @@ import rbn.edu.filters.JWTLoginFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,17 +32,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JWTLoginFilter jwtLoginFilter;
 
+    @Autowired
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
 	http.headers().cacheControl();
+
 	http.csrf().disable() //
 		.authorizeRequests().antMatchers("/").permitAll().antMatchers(HttpMethod.POST, "/login").permitAll()
 		.anyRequest().authenticated().and() //
-		// new JWTLoginFilter(authenticationManager())
 		.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class)
 		.addFilterBefore(jwtLoginFilter, UsernamePasswordAuthenticationFilter.class)
-		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     // @Override
@@ -59,11 +63,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
 	PasswordEncoder encoder = new BCryptPasswordEncoder();
 	return encoder;
-    }
-
-    @Bean
-    public AuthenticationManager authManager() throws Exception {
-	return authenticationManager();
     }
 
 }

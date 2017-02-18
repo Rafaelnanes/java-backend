@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import rbn.edu.dao.IUserLevelDAO;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.UserLevel;
+import rbn.edu.model.api.FilterDTO;
 
 @Repository
 @Transactional

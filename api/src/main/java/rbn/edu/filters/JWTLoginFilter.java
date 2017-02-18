@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
@@ -18,8 +17,10 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import rbn.edu.jwt.AccountCredentials;
+import rbn.edu.jwt.AuthenticatedUser;
 import rbn.edu.jwt.TokenAuthenticationService;
+import rbn.edu.model.User;
+import rbn.edu.service.IUserService;
 
 @Component
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
@@ -27,26 +28,21 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Autowired
     private TokenAuthenticationService tokenAuthenticationService;
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private IUserService userService;
 
-    public JWTLoginFilter() {
+    @Autowired
+    public JWTLoginFilter(AuthenticationManager authenticationManager) {
 	super(new AntPathRequestMatcher("/login"));
-    }
-
-    @Override
-    public void afterPropertiesSet() {
 	setAuthenticationManager(authenticationManager);
-	super.afterPropertiesSet();
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
 	    HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
-	AccountCredentials credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(),
-		AccountCredentials.class);
-	UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credentials.getLogin(),
-		credentials.getPassword());
-	return getAuthenticationManager().authenticate(token);
+	User credentials = new ObjectMapper().readValue(httpServletRequest.getInputStream(), User.class);
+	User user = userService.getUserByLogin(credentials.getLogin());
+	AuthenticatedUser authenticatedUser = new AuthenticatedUser(user);
+	return getAuthenticationManager().authenticate(authenticatedUser);
     }
 
     @Override

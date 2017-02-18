@@ -1,23 +1,32 @@
 package rbn.edu.jwt;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
+import rbn.edu.model.User;
+import rbn.edu.model.UserLevel;
+
 public class AuthenticatedUser implements Authentication {
 
     private static final long serialVersionUID = -4202601568054467013L;
-    private String name;
     private boolean authenticated = true;
+    private User user;
 
-    AuthenticatedUser(String name) {
-	this.name = name;
+    public AuthenticatedUser(User user) {
+	this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	return null;
+	return user.getUserLevels();
+    }
+
+    public void setAuthorities(List<UserLevel> userLevels) {
+	user.setUserLevels(new HashSet<UserLevel>(userLevels));
     }
 
     @Override
@@ -32,7 +41,7 @@ public class AuthenticatedUser implements Authentication {
 
     @Override
     public Object getPrincipal() {
-	return null;
+	return user;
     }
 
     @Override
@@ -47,6 +56,6 @@ public class AuthenticatedUser implements Authentication {
 
     @Override
     public String getName() {
-	return this.name;
+	return this.user.getLogin();
     }
 }

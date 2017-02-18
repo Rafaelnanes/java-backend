@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import rbn.edu.enums.ProductTypeEnum;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
-import rbn.edu.model.ResponseServer;
+import rbn.edu.model.api.FilterDTO;
+import rbn.edu.model.api.ResponseServer;
 import rbn.edu.service.IProductService;
 
 @Component

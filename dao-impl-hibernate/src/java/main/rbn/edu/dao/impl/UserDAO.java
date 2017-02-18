@@ -7,8 +7,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import rbn.edu.dao.IUserDAO;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.User;
+import rbn.edu.model.api.FilterDTO;
 
 @Repository
 public class UserDAO extends GenericDAO<User> implements IUserDAO {

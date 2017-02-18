@@ -12,9 +12,9 @@ import rbn.edu.config.ProjectConstants;
 import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.dao.IProductDAO;
 import rbn.edu.enums.ProductTypeEnum;
-import rbn.edu.model.FilterDTO;
 import rbn.edu.model.Product;
-import rbn.edu.model.ResponseServer;
+import rbn.edu.model.api.FilterDTO;
+import rbn.edu.model.api.ResponseServer;
 import rbn.edu.service.IProductService;
 import rbn.edu.service.IUserProductService;
 
