@@ -41,11 +41,12 @@ public class ProductService implements IProductService {
 
     @Override
     public void update(Product t) throws BusinessException {
-	Product managedProduct = productDAO.getByName(t.getName());
-	if (managedProduct != null && !managedProduct.equals(t)
-		&& managedProduct.getName().equalsIgnoreCase(t.getName())) {
+	Product productFromName = productDAO.getByName(t.getName());
+	if (productFromName != null && !productFromName.equals(t)
+		&& productFromName.getName().equalsIgnoreCase(t.getName())) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.PRODUCT_NAME_ALREADY_EXISTS));
 	}
+	Product managedProduct = productDAO.getById(t.getId());
 	managedProduct.setDate(t.getDate());
 	managedProduct.setName(t.getName());
 	managedProduct.setProductType(t.getProductType());
