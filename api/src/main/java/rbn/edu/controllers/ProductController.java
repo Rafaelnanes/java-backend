@@ -42,7 +42,7 @@ public class ProductController {
 	return productService.getAll();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR', 'ROLE_CUSTOMER')")
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     public ResponseServer<Product> getByQuery(@RequestBody FilterDTO<Product> dto) throws BusinessException {
 	return productService.getAll(dto);
