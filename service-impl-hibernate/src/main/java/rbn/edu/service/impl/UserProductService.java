@@ -2,11 +2,10 @@ package rbn.edu.service.impl;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import rbn.edu.config.ProjectConstants;
@@ -49,9 +48,14 @@ public class UserProductService implements IUserProductService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<UserProduct> getByUserId(long userId) {
-	return userProductDAO.getByUserId(userId);
+	List<UserProduct> list = userProductDAO.getByUserId(userId);
+	for (UserProduct up : list) {
+	    up.getUser().setUserLevels(null);
+	    up.getUser().setPassword(null);
+	}
+	return list;
     }
 
     @Override

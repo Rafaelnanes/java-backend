@@ -38,12 +38,8 @@ public class UserProductController {
 	if (id == null) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.ID_NULL));
 	}
-	List<UserProduct> list = userProductService.getByUserId(id);
-	for (UserProduct up : list) {
-	    up.getUser().setUserLevels(null);
-	    up.getUser().setPassword(null);
-	}
-	return list;
+
+	return userProductService.getByUserId(id);
     }
 
 }
