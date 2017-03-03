@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import rbn.edu.enums.UserAuthorizationType;
+
 @Entity
 @Table(name = "USR_USER")
 @AttributeOverrides({ @AttributeOverride(name = AbstractEntity.PK, column = @Column(name = User.PK)) })
@@ -35,10 +37,15 @@ public class User extends AbstractEntity<Long> {
     public User() {
     }
 
-    public User(String login, String password, Boolean enabled) {
+    public User(long id, String login, String password, Boolean enabled, UserAuthorizationType type) {
 	this.login = login;
 	this.password = password;
 	this.enabled = enabled;
+	this.id = id;
+	UserLevel userLevel = new UserLevel(type, this);
+	Set<UserLevel> set = new HashSet<UserLevel>();
+	set.add(userLevel);
+	this.setUserLevels(set);
     }
 
     public String getLogin() {

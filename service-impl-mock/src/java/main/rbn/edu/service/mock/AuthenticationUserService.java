@@ -1,4 +1,4 @@
-package rbn.edu.service.impl;
+package rbn.edu.service.mock;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,31 +12,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import rbn.edu.dao.IUserDAO;
 import rbn.edu.model.User;
 import rbn.edu.model.UserLevel;
+import rbn.edu.service.IUserService;
 
 @Service("userDetailsService")
 public class AuthenticationUserService implements UserDetailsService {
 
     @Autowired
-    private IUserDAO userDAO;
+    private IUserService userService;
 
     @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-
-	User appUser = userDAO.findUserByLogin(login);
-
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	User user = userService.getUserByLogin(username);
 	List<GrantedAuthority> authorities = null;
-	if (appUser != null && !CollectionUtils.isEmpty(appUser.getUserLevels())) {
-	    authorities = buildUserAuthority(appUser.getUserLevels());
+	if (user != null && !CollectionUtils.isEmpty(user.getUserLevels())) {
+	    authorities = buildUserAuthority(user.getUserLevels());
 	}
 
-	return buildUserForAuthentication(appUser, authorities);
+	return buildUserForAuthentication(user, authorities);
     }
 
     private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user,

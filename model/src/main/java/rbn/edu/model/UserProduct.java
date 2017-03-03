@@ -26,6 +26,16 @@ public class UserProduct extends AbstractEntity<Long> {
     @Column(name = "CAP_QUANTITY")
     private Integer quantity;
 
+    public UserProduct() {
+    }
+
+    public UserProduct(User user, Product product, Integer quantity) {
+	super();
+	this.user = user;
+	this.product = product;
+	this.quantity = quantity;
+    }
+
     public User getUser() {
 	return user;
     }
