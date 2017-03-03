@@ -23,7 +23,7 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src/java/main</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
