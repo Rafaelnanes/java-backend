@@ -2,6 +2,8 @@ package rbn.edu.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +22,8 @@ import rbn.edu.service.IUserProductService;
 @RequestMapping("/userproduct")
 public class UserProductController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserProductController.class);
+
     @Autowired
     private IUserProductService userProductService;
 
@@ -29,12 +33,14 @@ public class UserProductController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(method = RequestMethod.POST)
     public void send(@RequestBody List<UserProduct> userProductList) throws BusinessException {
+	logger.info("POST, userProduct send");
 	userProductService.save(userProductList);
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public List<UserProduct> get(@PathVariable("id") Long id) throws BusinessException {
+	logger.info("GET, userProductId {} get", id);
 	if (id == null) {
 	    throw new BusinessException(env.getProperty(ProjectConstants.ID_NULL));
 	}

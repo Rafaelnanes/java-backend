@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,8 @@ import rbn.edu.service.IUserService;
 @Service
 public class TokenAuthenticationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationService.class);
+
     @Autowired
     private IUserService userService;
 
@@ -34,6 +38,7 @@ public class TokenAuthenticationService {
     private final String TOKEN = "//";
 
     public void addAuthentication(HttpServletResponse response, String username) throws JsonProcessingException {
+	logger.info("Authenticating user {}", username);
 	String finalString = "";
 	StringBuilder JWT = new StringBuilder();
 
@@ -67,10 +72,12 @@ public class TokenAuthenticationService {
 	    try {
 		username = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
 	    } catch (ExpiredJwtException e) {
+		logger.error("Cannot authenticate user {}, cause: ", username, e.getMessage());
 		throw new ExpiredJwtException(e.getHeader(), e.getClaims(), e.getMessage());
 	    }
 
 	    if (username != null) {
+		logger.info("Get authentication from user {}", username);
 		User user = userService.getUserByLogin(username);
 		return new AuthenticatedUser(user);
 	    }
