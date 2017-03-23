@@ -22,6 +22,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import rbn.edu.model.User;
 import rbn.edu.service.IUserService;
+import rbn.edu.utils.AuthenticationUserWrapper;
 
 @Service
 public class TokenAuthenticationService {
@@ -43,7 +44,8 @@ public class TokenAuthenticationService {
 	StringBuilder JWT = new StringBuilder();
 
 	User user = userService.getUserByLogin(username);
-	SecurityContextHolder.getContext().setAuthentication(new AuthenticatedUser(user));
+	AuthenticationUser authenticationUser = AuthenticationUserWrapper.get().convert(user);
+	SecurityContextHolder.getContext().setAuthentication(authenticationUser);
 	user.getUserLevels().forEach(level -> level.setUser(null));
 	user.setPassword(null);
 	ObjectMapper mapper = new ObjectMapper();
@@ -79,7 +81,7 @@ public class TokenAuthenticationService {
 	    if (username != null) {
 		logger.info("Get authentication from user {}", username);
 		User user = userService.getUserByLogin(username);
-		return new AuthenticatedUser(user);
+		return AuthenticationUserWrapper.get().convert(user);
 	    }
 	}
 	return null;

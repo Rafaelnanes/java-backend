@@ -1,37 +1,34 @@
 package rbn.edu.jwt;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
-import rbn.edu.model.User;
 import rbn.edu.model.UserLevel;
 
-public class AuthenticatedUser implements Authentication {
+public class AuthenticationUser implements Authentication {
 
     private static final long serialVersionUID = -4202601568054467013L;
-    private boolean authenticated = true;
-    private User user;
-
-    public AuthenticatedUser(User user) {
-	this.user = user;
-    }
+    private boolean authenticated;
+    private String login;
+    private String password;
+    private boolean enabled;
+    private List<UserLevel> permissions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-	return user.getUserLevels();
+	return permissions;
     }
 
     public void setAuthorities(List<UserLevel> userLevels) {
-	user.setUserLevels(new HashSet<UserLevel>(userLevels));
+	permissions = userLevels;
     }
 
     @Override
     public Object getCredentials() {
-	return null;
+	return password;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class AuthenticatedUser implements Authentication {
 
     @Override
     public Object getPrincipal() {
-	return user;
+	return this;
     }
 
     @Override
@@ -56,6 +53,31 @@ public class AuthenticatedUser implements Authentication {
 
     @Override
     public String getName() {
-	return this.user.getLogin();
+	return login;
     }
+
+    public boolean isEnabled() {
+	return enabled;
+    }
+
+    public String getLogin() {
+	return login;
+    }
+
+    public void setLogin(String login) {
+	this.login = login;
+    }
+
+    public String getPassword() {
+	return password;
+    }
+
+    public void setPassword(String password) {
+	this.password = password;
+    }
+
+    public void setEnabled(boolean enabled) {
+	this.enabled = enabled;
+    }
+
 }
