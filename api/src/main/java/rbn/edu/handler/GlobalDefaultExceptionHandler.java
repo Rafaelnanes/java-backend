@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,18 @@ class GlobalDefaultExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
     public ResponseError handleError401(AccessDeniedException e) {
+	ResponseError error = new ResponseError();
+	error.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+	List<String> list = new ArrayList<String>();
+	list.add("Unauthorized");
+	error.setMessages(list);
+	return error;
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseBody
+    public ResponseError handleError401BadCredentials(BadCredentialsException e) {
 	ResponseError error = new ResponseError();
 	error.setStatusCode(HttpStatus.UNAUTHORIZED.value());
 	List<String> list = new ArrayList<String>();

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,7 +34,7 @@ public class TokenAuthenticationService {
     private long EXPIRATIONTIME = 1000 * 60 * 60; // 1 hour
     private String secret = "ThisIsASecret";
     // private String tokenPrefix = "Bearer";
-    private String headerString = "Authorization";
+    private String HEADER_AUTHORIZATION = "Authorization";
     private final String TOKEN = "//";
 
     public void addAuthentication(HttpServletResponse response, String username) throws JsonProcessingException {
@@ -44,8 +43,6 @@ public class TokenAuthenticationService {
 	StringBuilder JWT = new StringBuilder();
 
 	User user = userService.getUserByLogin(username);
-	AuthenticationUser authenticationUser = AuthenticationUserWrapper.get().convert(user);
-	SecurityContextHolder.getContext().setAuthentication(authenticationUser);
 	user.getUserLevels().forEach(level -> level.setUser(null));
 	user.setPassword(null);
 	ObjectMapper mapper = new ObjectMapper();
@@ -61,18 +58,19 @@ public class TokenAuthenticationService {
 	} catch (UnsupportedEncodingException e) {
 
 	}
-	response.addHeader(headerString, finalString);
+	response.addHeader(HEADER_AUTHORIZATION, finalString);
     }
 
     public Authentication getAuthentication(HttpServletRequest request)
 	    throws UnsupportedEncodingException, ExpiredJwtException {
-	String token = request.getHeader(headerString);
+	String token = request.getHeader(HEADER_AUTHORIZATION);
 
 	if (token != null) {
 	    String username = null;
 
 	    try {
-		username = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
+		String tokenDecoded = new String(Base64.getDecoder().decode(token)).split(TOKEN)[1];
+		username = Jwts.parser().setSigningKey(secret).parseClaimsJws(tokenDecoded).getBody().getSubject();
 	    } catch (ExpiredJwtException e) {
 		logger.error("Cannot authenticate user {}, cause: ", username, e.getMessage());
 		throw new ExpiredJwtException(e.getHeader(), e.getClaims(), e.getMessage());

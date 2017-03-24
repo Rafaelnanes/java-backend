@@ -22,10 +22,13 @@ public class AuthenticationUserWrapper {
 
     public AuthenticationUser convert(User user) {
 	AuthenticationUser authenticationUser = new AuthenticationUser();
-	authenticationUser.setAuthorities(new ArrayList<UserLevel>(user.getUserLevels()));
-	authenticationUser.setLogin(user.getLogin());
-	authenticationUser.setPassword(user.getPassword());
-	authenticationUser.setEnabled(user.isEnabled());
+	if (user != null) {
+	    authenticationUser.setAuthorities(new ArrayList<UserLevel>(user.getUserLevels()));
+	    authenticationUser.setLogin(user.getLogin());
+	    authenticationUser.setPassword(user.getPassword());
+	    authenticationUser.setEnabled(user.isEnabled());
+	    authenticationUser.setAuthenticated(true);
+	}
 	return authenticationUser;
     }
 
