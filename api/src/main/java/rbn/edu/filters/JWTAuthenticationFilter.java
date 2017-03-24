@@ -28,6 +28,7 @@ public class JWTAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 	    throws IOException, ServletException {
 	Authentication authentication = null;
+	SecurityContextHolder.clearContext();
 	try {
 	    authentication = tokenAuthenticationService.getAuthentication((HttpServletRequest) request);
 	} catch (ExpiredJwtException e) {
