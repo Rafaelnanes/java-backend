@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>rbn.backend</groupId>
 		<artifactId>java-backend</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<dependencies>
