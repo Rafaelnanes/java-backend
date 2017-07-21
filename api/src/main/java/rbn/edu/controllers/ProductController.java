@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import rbn.edu.annotations.PermitAll;
 import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.enums.ProductTypeEnum;
 import rbn.edu.model.Product;
@@ -42,7 +43,8 @@ public class ProductController {
 	productService.update(product);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
+    @PermitAll
+    // @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VISITOR')")
     @RequestMapping(method = RequestMethod.GET)
     public List<Product> get() {
 	logger.info("GET, product get");
