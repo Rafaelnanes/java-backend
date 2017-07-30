@@ -1,4 +1,4 @@
-package rbn.edu.aop;
+package rbn.edu.config.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import rbn.edu.websockets.GetAllProductsWebSocketHandler;
+import rbn.edu.config.websockets.GetAllProductsWebSocketHandler;
 
 @Aspect
 @Component

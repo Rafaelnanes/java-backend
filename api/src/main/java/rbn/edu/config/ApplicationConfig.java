@@ -18,10 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = { //
 	"rbn.edu.config", //
 	"rbn.edu.controllers", //
-	"rbn.edu.websockets", //
-	"rbn.edu.aop", //
 	"rbn.edu.filters", //
-	"rbn.edu.handler", //
 	"rbn.edu.security", //
 	"rbn.edu.jwt" })
 public class ApplicationConfig extends WebMvcConfigurerAdapter {

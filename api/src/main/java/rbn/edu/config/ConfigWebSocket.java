@@ -6,7 +6,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-import rbn.edu.websockets.GetAllProductsWebSocketHandler;
+import rbn.edu.config.websockets.GetAllProductsWebSocketHandler;
 
 @Configuration
 @EnableWebSocket

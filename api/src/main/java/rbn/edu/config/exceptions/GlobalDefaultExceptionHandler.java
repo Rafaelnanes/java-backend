@@ -1,17 +1,15 @@
-package rbn.edu.handler;
+package rbn.edu.config.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import rbn.edu.config.exceptions.BusinessException;
 import rbn.edu.model.api.ResponseError;
 
 @ControllerAdvice
@@ -29,14 +27,14 @@ class GlobalDefaultExceptionHandler {
 	return error;
     }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
     @ResponseBody
-    public ResponseError handleError401(AccessDeniedException e) {
+    public ResponseError handleError401(org.springframework.security.access.AccessDeniedException e) {
 	ResponseError error = new ResponseError();
-	error.setStatusCode(HttpStatus.UNAUTHORIZED.value());
+	error.setStatusCode(HttpStatus.FORBIDDEN.value());
 	List<String> list = new ArrayList<String>();
-	list.add("Unauthorized");
+	list.add("Forbidden");
 	error.setMessages(list);
 	return error;
     }

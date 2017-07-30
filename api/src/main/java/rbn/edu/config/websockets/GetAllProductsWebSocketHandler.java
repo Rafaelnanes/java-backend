@@ -1,4 +1,4 @@
-package rbn.edu.websockets;
+package rbn.edu.config.websockets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

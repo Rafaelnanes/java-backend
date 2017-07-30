@@ -50,12 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			UsernamePasswordAuthenticationFilter.class);
     }
 
-    // @Override
-    // protected void configure(AuthenticationManagerBuilder auth) throws
-    // Exception {
-    // auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
-    // }
-
     @Override
     public void configure(WebSecurity web) throws Exception {
 	addIgnoringSecurityToEndpoints(web);
