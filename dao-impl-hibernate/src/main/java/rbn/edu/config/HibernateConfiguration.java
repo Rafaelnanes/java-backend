@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = { "classpath:db.properties" })
+@PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
 
     @Autowired
