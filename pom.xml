@@ -5,7 +5,7 @@
 	<artifactId>java-backend</artifactId>
 	<version>1.2.0</version>
 	<packaging>pom</packaging>
-	<description>Test description</description>
+	<description>Test description </description>
 
 	<modules>
 		<module>api</module>
