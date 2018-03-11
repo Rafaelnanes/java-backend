@@ -5,6 +5,7 @@
 	<artifactId>java-backend</artifactId>
 	<version>1.2.0</version>
 	<packaging>pom</packaging>
+	<description>Test description</description>
 
 	<modules>
 		<module>api</module>
@@ -35,8 +36,11 @@
 
 		<profile>
 			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
-				<database.url>jdbc:mysql://localhost:3306/rbn-test</database.url>
+				<database.url>jdbc:mysql://localhost:3306/rbn</database.url>
 				<database.login>root</database.login>
 				<database.password>1234</database.password>
 			</properties>
